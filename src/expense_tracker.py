@@ -7,7 +7,7 @@ import click
 class ExpenseTracker:
 
     def __init__(self):
-        self.weekly.data = []
+        self.weekly_data = []
 
 
     def create_new_tracker(self):
