@@ -9,7 +9,7 @@ def main():
     is_running = True
 
     while is_running:
-        print(f"{Fore.RED}1. {emoji.emojize(':new:')} Create new Expense Tracker{Fore.RESET}")
+        print(f"{Fore.RED}1. Create new Expense Tracker{Fore.RESET}")
         print(f"{Fore.CYAN}2. Load existing Expense Tracker{Fore.RESET}")
         print(f"{Fore.GREEN}3. View instructions{Fore.RESET}")
         print(f"{Fore.YELLOW}4. Exit{Fore.RESET}")
