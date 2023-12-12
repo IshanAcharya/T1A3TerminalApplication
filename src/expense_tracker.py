@@ -74,9 +74,13 @@ class ExpenseTracker:
         print("- You will also have the ability to export your data to a CSV file for external data keeping/analysis")
         print("- Thank you for using Budget Buddy. I hope you enjoy using it!")
 
-        input("Press r to return to the main menu.")
-        if user_input.lower() == 'r':
-            return
+        while True: 
+            user_input = input("Press r to return to the main menu:").lower()
+
+            if user_input == 'r':
+                break
+            else: 
+                print("Invalid input. Please enter r to return to the main menu.")
 
 
     def record_income(self):
