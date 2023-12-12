@@ -59,14 +59,31 @@ class ExpenseTracker:
 
 
     def view_instructions(self):
-        print("Loading instructions")
+        print("Welcome to Budget Buddy!\n")
+        print("To help you use this application, here are some simple instructions:\n")
+        print("1. To create a new expense tracker and start recording your income and expenses, select option 1 from the main menu and follow the sub-menu options.")
+        print("2. To load an existing expense tracker, select option 2 from the main menu and type in the filename of the existing expense tracker.")
+        print("3. To exit the application, select option 4 from the main menu.\n")
+        print("When creating an expense tracker for the first time:")
+        print("- First add your weekly income and expenses entries")
+        print("- When adding your income, you will be prompted to enter the income name, income amount, income category, and income date")
+        print("- When adding your expenses, you will be prompted to enter the expense name, expense amount, expense category, and expense date")
+        print("- You can then view all of your income and expense entries")
+        print("- You can delete any income or expense entries as you see fit")
+        print("- You can save all of your data and will be prompted to enter a filepath to save the data")
+        print("- You will also have the ability to export your data to a CSV file for external data keeping/analysis")
+        print("- Thank you for using Budget Buddy. I hope you enjoy using it!")
+
+        input("Press r to return to the main menu.")
+        if user_input.lower() == 'r':
+            return
 
 
     def record_income(self):
         print("Your income has been successfully recorded!")
 
     def record_expense(self):
-        print("Recording expense:")
+        print("You are now recording an expense.")
 
         expense_name = input("Enter the expense name:")
         expense_amount = float(input("Enter expense amount:"))
@@ -147,5 +164,5 @@ class Expense:
         self.date = date
 
     def __repr__(self):
-        return f"<Expense: {self.name}", {self.amount}, {self.category}, {self.date}>"
+        return f"<Expense: {self.name}, {self.amount}, {self.category}, {self.date}>"
 
