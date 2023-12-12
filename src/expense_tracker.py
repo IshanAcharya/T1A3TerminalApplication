@@ -74,9 +74,7 @@ class ExpenseTracker:
         
         except Exception as e:
             print(f"Error loading expense data: {e}")
-
             
-
 
     def view_instructions(self):
         print("Welcome to Budget Buddy!\n")
@@ -105,6 +103,16 @@ class ExpenseTracker:
 
     def record_income(self):
         print("Your income has been successfully recorded!")
+
+        income_name = input("Enter the income name:")
+        income_amount = float(input("Enter income amount:"))
+        income_category = input("Enter income category:")
+        income_date = datetime.date.today()
+
+        new_income = Income(name=income_name, amount=income_amount, category=income_category, date=income_date)
+        self.weekly_data.append(new_income)
+
+        print(f"Income recorded: {new_income}")
 
     def record_expense(self):
         print("You are now recording an expense.")
@@ -190,3 +198,12 @@ class Expense:
     def __repr__(self):
         return f"<Expense: {self.name}, {self.amount}, {self.category}, {self.date}>"
 
+class Income:
+    def __init__(self, name, amount, category, date) -> None:
+        self.name = name
+        self.amount = amount
+        self.category = category
+        self.date = date
+
+    def __repr__(self):
+        return f"<Income: {self.name}, {self.amount}, {self.category}, {self.date}>"
