@@ -49,7 +49,7 @@ class ExpenseTracker:
             elif sub_choice == "7":
                 print("Returning to the main menu.")
                 break
-            
+
             else:
                 print("Your input is invalid. Please choose a menu option between 1-7.")
             
@@ -69,7 +69,7 @@ class ExpenseTracker:
         print("Recording expense:")
 
         expense_name = input("Enter the expense name:")
-        epxense_amount = float(input("Enter expense amount:"))
+        expense_amount = float(input("Enter expense amount:"))
         expense_category = input("Enter expense category:")
         expense_date = datetime.date.today()
 
@@ -78,11 +78,11 @@ class ExpenseTracker:
 
         print(f"Expense recorded: {new_expense}")
 
-    def save_expense_to_file(self, expense_file_path:
+    def save_expense_to_file(self, expense_file_path):
         try:
             with open(expense_file_path, 'w') as file:
-            for expense in self.weekly_data:
-            file.write(f"{expense.name}, {expense.amount}, {expense.category}, {expense.date}")
+                for expense in self.weekly_data:
+                    file.write(f"{expense.name}, {expense.amount}, {expense.category}, {expense.date}")
         
             print(f"Budget data saved to {expense_file_path} successfully!")
 
@@ -123,21 +123,19 @@ class ExpenseTracker:
 
     def export_to_csv(self, csv_file_path):
         try:
-            with open(csv_file_path, 'w', newline' ') as csvfile:
-            fieldnames = ['Name', 'Amount', 'Category', Date']
-            write = csv.writer(csvfile)
+            with open(csv_file_path, 'w', newline='') as csvfile:
+                fieldnames = ['Name', 'Amount','Category', 'Date']
+                writer = csv.writer(csvfile)
 
-            writer.writerow(fieldnames)
+                writer.writerow(fieldnames)
 
-            for expense in self.weekly_data:
-                writer.writerow([expense.name, expense.amount, expense.category, expense.date])
+                for expense in self.weekly_data:
+                    writer.writerow([expense.name, expense.amount, expense.category, expense.date])
         
-        print(f"Your budget data has been exported to {csv_file_path} sucessfully!")
+            print(f"Your budget data has been exported to {csv_file_path} sucessfully!")
 
-    except:
-        print("There was an error exporting your budget data. Please check the file name and try again.")
-
-
+        except:
+            print("There was an error exporting your budget data. Please check the file name and try again.")
 
 
 class Expense:
@@ -149,5 +147,5 @@ class Expense:
         self.date = date
 
     def __repr__(self):
-        return f"<Expense: {self.name}", ${self.amount}, {self.category}, {self.date}>"
+        return f"<Expense: {self.name}", {self.amount}, {self.category}, {self.date}>"
 
