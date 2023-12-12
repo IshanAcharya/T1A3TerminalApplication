@@ -19,7 +19,7 @@ class ExpenseTracker:
         self.weeky_data = []
 
         while True: 
-            # Sub-menu within option 1
+            # Sub-menu within options to navigate around application
 
             print("\nSub-menu:")
             print("1. Add income entry")
@@ -56,6 +56,26 @@ class ExpenseTracker:
 
     def load_expense_tracker(self):
         print("Loading existing expense tracker")
+
+        file_name = input("Enter the file name of the saved data:")
+        
+        try: 
+            with open(file_name, 'r') as file:
+                reader = csv.reader(file)
+
+                for row in reader:
+                    name, amount, category, date = row
+                    new_expense = Expense(name, float(amount), category, date)
+                    self.weeky_data.append(new_expense)
+            print(f"Data has been successfully loaded from {file_name}")
+
+        except FileNotFoundError: 
+            print(f"Error: File {file_name} could not be found. Please check the file name and try again.")
+        
+        except Exception as e:
+            print(f"Error loading expense data: {e}")
+
+            
 
 
     def view_instructions(self):
