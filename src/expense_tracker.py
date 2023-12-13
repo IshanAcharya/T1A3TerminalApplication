@@ -151,7 +151,8 @@ class ExpenseTracker:
         total_income = 0 
         total_expenses = 0
 
-        for week_num, week_data in enumera(self)
+        for week_num, week_data in enumerate(self.weeky_data, start=1):
+            print(f"\nWeek {week_num}:")
         
             for entry in week_data:
                 if isinstance (entry, Income):
