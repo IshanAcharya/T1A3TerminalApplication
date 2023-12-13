@@ -102,7 +102,7 @@ class ExpenseTracker:
 
 
     def record_income(self):
-        print("Your income has been successfully recorded!")
+        print("You are now recording an income.")
 
         income_name = input("Enter the income name:")
         income_amount = float(input("Enter income amount:"))
@@ -143,6 +143,34 @@ class ExpenseTracker:
 
     def view_budget(self):
         print("viewing budget")
+
+        if not self.weekly_data:
+            print("Sorry, no data available. Please add your income or expense entries firsst")
+            return
+
+        total_income = 0 
+        total_expenses = 0
+
+        for week_num, week_data in enumera(self)
+        
+            for entry in week_data:
+                if isinstance (entry, Income):
+                    total_income += entry.amount
+
+                elif isinstance(entry, Expense):
+                    total_expenses += entry.amount
+
+            print(f"Total Income: {total_income:}")
+            print(f"Total Expenses: {total_expenses}")
+
+            net_balance = total_income - total_expenses
+            print(f"Net balance: {net_balance:}")
+
+            print("Entries:")
+            for entry in week_data:
+                print(entry)
+
+        print("This is the end of your budget summary.")
 
 
     def delete_entry(self):
