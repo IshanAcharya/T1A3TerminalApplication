@@ -46,7 +46,7 @@ class ExpenseTracker:
                 self.view_budget()
             elif sub_choice == "4":
                 expense_file_path = input("Enter file name to save budget data:")
-                self.save_expense_to_file(expense_file_path)
+                self.save_data_to_file(expense_file_path)
             elif sub_choice == "5":
                 self.delete_entry()
             elif sub_choice == "6":
@@ -61,26 +61,74 @@ class ExpenseTracker:
             
 # Load existing Expense Tracker from a file
     def load_expense_tracker(self):
-        print("Loading existing expense tracker")
+        print("Loading existing expense tracker...")
+
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
 
         file_name = input("Enter the file name of the saved data:")
+
+        full_file_path = os.path.join(desktop_path, file_name)
         
         try: 
-            with open(file_name, 'r') as file:
+            with open(full_file_path, 'r') as file:
                 reader = csv.reader(file)
+
+                self.monthly_data = []
 
                 for row in reader:
                     name, amount, category, date = row
                     new_expense = Expense(name, float(amount), category, date)
                     self.monthly_data.append(new_expense)
-            print(f"Data has been successfully loaded from {file_name}")
+
+            print(f"Data has been successfully loaded from {full_file_path}")
+
+            loaded_successfully = True
 
         except FileNotFoundError: 
-            print(f"Error: File {file_name} could not be found. Please check the file name and try again.")
+            print(f"Error: File {full_file_path} could not be found. Please check the file name and try again.")
+
+            loaded_successfully = False
         
         except Exception as e:
             print(f"Error loading expense data: {e}")
-            
+
+            loaded_successfully = False
+        
+        if loaded_successfully:
+            while True:
+                print("\nSub-menu:")
+                print("1. Add income entry")
+                print("2. Add expense entry")
+                print("3. View your budget for this month")
+                print("4. Save budget data")
+                print("5. Delete an entry")
+                print("6. Export budget to CSV")
+                print("7. Return to main menu")
+
+                sub_choice = input("Please enter which option you'd like to choose (1-7):")
+
+                if sub_choice == "1":
+                    self.record_income()
+                elif sub_choice == "2":
+                    self.record_expense()
+                elif sub_choice == "3":
+                    self.view_budget()
+                elif sub_choice == "4":
+                    expense_file_path = input("Enter file name to save budget data:")
+                    self.save_data_to_file(expense_file_path)
+                elif sub_choice == "5":
+                    self.delete_entry()
+                elif sub_choice == "6":
+                    csv_file_name = input("Enter file name to export budget to CSV file:")
+                    self.export_to_csv(csv_file_name)
+                elif sub_choice == "7":
+                    print("Returning back to the main menu.")
+                    break
+                else:
+                    print("Your input is invalid. Please choose a menu option between 1-7.")
+        else:
+            print("Returning to the main menu.")
+
 # Display instructions on how to use the Expense Tracker application
     def view_instructions(self):
         print("Welcome to Budget Buddy!\n")
@@ -166,7 +214,7 @@ class ExpenseTracker:
                 print("Invalid input. Please enter a number.")
 
 # Save data to file
-    def save_expense_to_file(self, file_name):
+    def save_data_to_file(self, file_name):
         desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
         expense_file_path = os.path.join(desktop_path, file_name)
 
