@@ -163,9 +163,16 @@ class ExpenseTracker:
 
         month_entries = [entry for entry in self.weekly_data if entry.date.strftime("%B %Y") == selected_month]
 
-        print(f"\nEntries for {selected_month}:")
-        for entry in month_entries:
-            print(entry)
+        incomes = [entry for entry in month_entries if isinstance(entry, Income)]
+        expenses = [entry for entry in month_entries if isinstance(entry, Expense)]
+
+        print("\nIncomes:")
+        for income in incomes:
+            print(income)
+
+        print("\nExpenses:")
+        for expense in expenses:
+            print(expense)
 
         print("This is the end of your budget summary.")
 
