@@ -4,6 +4,7 @@ import emoji
 import csv
 import click
 import datetime
+import os
 
 class ExpenseTracker:
 
@@ -127,11 +128,14 @@ class ExpenseTracker:
 
         print(f"Expense recorded: {new_expense}")
 
-    def save_expense_to_file(self, expense_file_path):
+    def save_expense_to_file(self, file_name):
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+        expense_file_path = os.path.join(desktop_path, file_name)
+
         try:
             with open(expense_file_path, 'w') as file:
                 for expense in self.weekly_data:
-                    file.write(f"{expense.name}, {expense.amount}, {expense.category}, {expense.date}")
+                    file.write(f"{expense.name}, {expense.amount}, {expense.category}, {expense.date}\n")
         
             print(f"Budget data saved to {expense_file_path} successfully!")
 
