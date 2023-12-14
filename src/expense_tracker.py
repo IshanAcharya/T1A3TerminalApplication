@@ -106,7 +106,7 @@ class ExpenseTracker:
         print("You are now recording an income.")
 
         income_name = input("Enter the income name:")
-        income_amount = float(input("Enter income amount:").replace(",", ""))
+        income_amount = float(input("Enter income amount:").replace(",", "").replace("$", ""))
         income_category = input("Enter income category:")
         income_date = datetime.date.today()
 
@@ -119,7 +119,7 @@ class ExpenseTracker:
         print("You are now recording an expense.")
 
         expense_name = input("Enter the expense name:")
-        expense_amount = float(input("Enter expense amount:").replace(",", ""))
+        expense_amount = float(input("Enter expense amount:").replace(",", "").replace("$", ""))
         expense_category = input("Enter expense category:")
         expense_date = datetime.date.today()
 
@@ -172,11 +172,11 @@ class ExpenseTracker:
 
         print("\nIncomes:")
         for income in incomes:
-            print(income)
+            print(f"{income.name}: ${income.amount:.2f} ({income.date})")
 
         print("\nExpenses:")
         for expense in expenses:
-            print(expense)
+            print(f"{expense.name}: ${expense.amount:.2f} ({expense.date})")
 
         print("This is the end of your budget summary.")
 
