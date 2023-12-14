@@ -12,7 +12,7 @@ def main():
         print(f"{Fore.RED}1. Create new Expense Tracker{Fore.RESET}")
         print(f"{Fore.CYAN}2. Load existing Expense Tracker{Fore.RESET}")
         print(f"{Fore.GREEN}3. View instructions{Fore.RESET}")
-        print(f"{Fore.YELLOW}4. Exit{Fore.RESET}")
+        print(f"{Fore.YELLOW}4. Exit\n{Fore.RESET}")
 
         choice = input("To get started, please enter which option you'd like to choose (1-4):")
 

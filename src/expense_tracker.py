@@ -16,7 +16,7 @@ class ExpenseTracker:
 
         # Data structure to store weekly income and expenses
 
-        self.weeky_data = []
+        self.weekly_data = []
 
         while True: 
             # Sub-menu within options to navigate around application
@@ -66,7 +66,7 @@ class ExpenseTracker:
                 for row in reader:
                     name, amount, category, date = row
                     new_expense = Expense(name, float(amount), category, date)
-                    self.weeky_data.append(new_expense)
+                    self.weekly_data.append(new_expense)
             print(f"Data has been successfully loaded from {file_name}")
 
         except FileNotFoundError: 
@@ -147,29 +147,6 @@ class ExpenseTracker:
         if not self.weekly_data:
             print("Sorry, no data available. Please add your income or expense entries firsst")
             return
-
-        total_income = 0 
-        total_expenses = 0
-
-        for week_num, week_data in enumerate(self.weeky_data, start=1):
-            print(f"\nWeek {week_num}:")
-        
-            for entry in week_data:
-                if isinstance (entry, Income):
-                    total_income += entry.amount
-
-                elif isinstance(entry, Expense):
-                    total_expenses += entry.amount
-
-            print(f"Total Income: {total_income:}")
-            print(f"Total Expenses: {total_expenses}")
-
-            net_balance = total_income - total_expenses
-            print(f"Net balance: {net_balance:}")
-
-            print("Entries:")
-            for entry in week_data:
-                print(entry)
 
         print("This is the end of your budget summary.")
 
