@@ -7,6 +7,10 @@ import datetime
 import os
 
 class ExpenseTracker:
+    
+    # Lists to define income and expense categories
+    income_categories = ["Salary", "Side Job", "Interest", "Gift", "Freelance", "Other"]
+    expense_categories = ["Groceries", "Utilities", "Rent", "Mortgage", "Entertainment", "Transportation", "Health", "Clothing", "Gifts", "Other"]
 
     def __init__(self):
         self.monthly_data = []
