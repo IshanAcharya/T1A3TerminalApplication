@@ -106,6 +106,10 @@ class ExpenseTracker:
         print("You are now recording an income.")
 
         income_name = input("Enter the income name:")
+        while not income_name.isalpha():
+            print("Sorry your input is invalid. Please make sure the income name only contains text letters and no symbols or numbers.")
+            income_name = input("Enter the income name:")
+
         income_amount = float(input("Enter income amount:").replace(",", "").replace("$", ""))
         income_category = input("Enter income category:")
         income_date = datetime.date.today()
@@ -119,6 +123,10 @@ class ExpenseTracker:
         print("You are now recording an expense.")
 
         expense_name = input("Enter the expense name:")
+        while not expense_name.isalpha():
+            print("Sorry your input is invalid. Please make sure the expense name only contains text letters and no symbols or numbers.")
+            expense_name = input("Enter the expense name:")
+
         expense_amount = float(input("Enter expense amount:").replace(",", "").replace("$", ""))
         expense_category = input("Enter expense category:")
         expense_date = datetime.date.today()
