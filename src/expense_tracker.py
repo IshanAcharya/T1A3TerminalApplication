@@ -184,27 +184,32 @@ class ExpenseTracker:
     def delete_entry(self):
         print("Deleting an entry:")
 
-        for index, expense in enumerate(self.monthly_data, start=1):
-            print(f"{index}. {expense}")
+        for index, entry in enumerate(self.monthly_data, start=1):
+            print(f"{index}. {entry}")
 
         while True:
             user_input = input("Enter the index of the entry you wish to delete. Or enter 0 if you wish to cancel.")
 
             if user_input == '0':
                 print("Entry deletion cancelled!")
-                break
+                return
         
-        try:
-            entry_index = int(user_input)
+            try:
+                entry_index = int(user_input)
 
-            if 1 <= entry_index <= len(self.monthly_data):
-                del self.monthly_data [entry_index - 1]
-                print("You have successfully deleted the entry!")
-            else:
-                print("Invalid index. Please enter a valid index and try again.")
+                if 1 <= entry_index <= len(self.monthly_data):
+                    del self.monthly_data[entry_index - 1]
+                    print("You have successfully deleted the entry!")
+                    break
+                else:
+                    print("Invalid input. Please enter a valid input and try again.")
 
-        except ValueError: 
-            print("Invalid input, please enter a valid index and try again.")
+            except ValueError: 
+                print("Invalid input, please enter a valid index and try again.")
+
+            print("\nUpdated list of entries:")
+            for index, expense in enumerate(self.monthly_data, start=1):
+                    print(f"{index}. {expense}")
 
     def export_to_csv(self, csv_file_path):
         try:
