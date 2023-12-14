@@ -148,6 +148,25 @@ class ExpenseTracker:
             print("Sorry, no data available. Please add your income or expense entries firsst")
             return
 
+        unique_month = set(entry.date.strftime("%B %Y") for entry in self.weekly_data)
+
+        if not unique_month:
+            print("You have no available entries available for any month! Please add your entries first.")
+            return
+
+        print("List of available months:")
+        for index, month in enumerate(unique_month, start=1):
+            print(f"{index}. {month}")
+
+        selected_month_index = int(input("Please enter which month you would like to view:"))
+        selected_month = list(unique_month)[selected_month_index - 1]
+
+        month_entries = [entry for entry in self.weekly_data if entry.date.strftime("%B %Y") == selected_month]
+
+        print(f"\nEntries for {selected_month}:")
+        for entry in month_entries:
+            print(entry)
+
         print("This is the end of your budget summary.")
 
 
