@@ -50,10 +50,10 @@ class ExpenseTracker:
             elif sub_choice == "5":
                 self.delete_entry()
             elif sub_choice == "6":
-                csv_file_path = input("Enter file name to export budget to CSV file:")
-                self.export_to_csv(csv_file_path)
+                csv_file_name = input("Enter file name to export budget to CSV file:")
+                self.export_to_csv(csv_file_name)
             elif sub_choice == "7":
-                print("Returning to the main menu.")
+                print("Returning back to the main menu.")
                 break
 
             else:
@@ -116,7 +116,7 @@ class ExpenseTracker:
             income_name = input("Enter the income name: ")
 
         income_amount = float(input("Enter income amount: ").replace(",", "").replace("$", ""))
-        income_category = input("Enter income category: ")
+        income_category = self.choose_category("income")
         income_date = datetime.date.today()
 
         new_income = Income(name=income_name, amount=income_amount, category=income_category, date=income_date)
@@ -134,13 +134,36 @@ class ExpenseTracker:
             expense_name = input("Enter the expense name: ")
 
         expense_amount = float(input("Enter expense amount: ").replace(",", "").replace("$", ""))
-        expense_category = input("Enter expense category: ")
+        expense_category = self.choose_category("expense")
         expense_date = datetime.date.today()
 
         new_expense = Expense(name=expense_name, amount=expense_amount, category=expense_category, date=expense_date)
         self.monthly_data.append(new_expense)
 
         print(f"Expense recorded: {new_expense}")
+
+# Choose income and expense entry categories
+    def choose_category(self, entry_type):
+        if entry_type == "income":
+            categories = ExpenseTracker.income_categories
+        elif entry_type == "expense":
+            categories = ExpenseTracker.expense_categories
+        else:
+            return "Other"
+        
+        print("\nSelect a category:")
+        for i, category in enumerate(categories, start=1):
+            print(f"{i}. {category}")
+
+        while True:
+            try:
+                selected_index = int(input("Enter your category:"))
+                if 1 <= selected_index <= len(categories):
+                    return categories[selected_index -1]
+                else:
+                    print("Invalid input. Please enter a valid category.")
+            except ValueError:
+                print("Invalid input. Please enter a number.")
 
 # Save data to file
     def save_expense_to_file(self, file_name):
@@ -215,6 +238,30 @@ class ExpenseTracker:
         expense_categories = ExpenseTracker.expense_categories
 
         print("\nIncome Categories:")
+        for i, category in enumerate(income_categories, start=1):
+            print(f"{i}. {category}")
+                  
+        print("\nExpense Categories:")
+        for i, category in enumerate(expense_categories, start=1):
+            print(f"{i}. {category}")
+
+        selected_income_category = int(input("Select an income category to display:"))
+        selected_expense_category = int(input("Select an expense category to display:"))
+
+        filtered_entries = []
+        for entry in month_entries:
+            if selected_income_category == 0 and isinstance(entry, Income):
+                filtered_entries.append(entry)
+            elif selected_expense_category == 0 and isinstance(entry, Expense):
+                filtered_entries.append(entry)
+            elif isinstance(entry, Income) and entry.category == income_categories[selected_income_category -1]:
+                filtered_entries.append(entry)
+            elif isinstance(entry, Expense) and entry.category == expense_categories[selected_expense_category -1]:
+                filtered_entries.append(entry)
+
+        print(f"\nEntries for {selected_month} by category:")
+        for entry in filtered_entries:
+            print(entry)
 
 # Delete income or expense entries
     def delete_entry(self):
@@ -229,7 +276,6 @@ class ExpenseTracker:
             if user_input == '0':
                 print("Entry deletion cancelled!")
                 return
-        
             try:
                 entry_index = int(user_input)
 
@@ -243,12 +289,15 @@ class ExpenseTracker:
             except ValueError: 
                 print("Invalid input, please enter a valid index and try again.")
 
-            print("\nUpdated list of entries:")
-            for index, expense in enumerate(self.monthly_data, start=1):
-                    print(f"{index}. {expense}")
+        print("\nUpdated list of entries:")
+        for index, expense in enumerate(self.monthly_data, start=1):
+            print(f"{index}. {expense}")
 
 # Export budget data to CSV file
-    def export_to_csv(self, csv_file_path):
+    def export_to_csv(self, csv_file_name):
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+        csv_file_path = os.path.join(desktop_path, csv_file_name)
+
         try:
             with open(csv_file_path, 'w', newline='') as csvfile:
                 fieldnames = ['Name', 'Amount','Category', 'Date']
@@ -261,7 +310,7 @@ class ExpenseTracker:
         
             print(f"Your budget data has been exported to {csv_file_path} sucessfully!")
 
-        except:
+        except Exception as e:
             print("There was an error exporting your budget data. Please check the file name and try again.")
 
 # Class for expense objects
