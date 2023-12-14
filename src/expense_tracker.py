@@ -9,15 +9,15 @@ import os
 class ExpenseTracker:
 
     def __init__(self):
-        self.weekly_data = []
+        self.monthly_data = []
 
 
     def create_new_expense_tracker(self):
         print("Creating new expense tracker")
 
-        # Data structure to store weekly income and expenses
+        # Data structure to store monthly income and expenses
 
-        self.weekly_data = []
+        self.monthly_data = []
 
         while True: 
             # Sub-menu within options to navigate around application
@@ -25,7 +25,7 @@ class ExpenseTracker:
             print("\nSub-menu:")
             print("1. Add income entry")
             print("2. Add expense entry")
-            print("3. View weekly budget")
+            print("3. View your budget for this month")
             print("4. Save budget data")
             print("5. Delete an entry")
             print("6. Export budget to CSV")
@@ -67,7 +67,7 @@ class ExpenseTracker:
                 for row in reader:
                     name, amount, category, date = row
                     new_expense = Expense(name, float(amount), category, date)
-                    self.weekly_data.append(new_expense)
+                    self.monthly_data.append(new_expense)
             print(f"Data has been successfully loaded from {file_name}")
 
         except FileNotFoundError: 
@@ -84,7 +84,7 @@ class ExpenseTracker:
         print("2. To load an existing expense tracker, select option 2 from the main menu and type in the filename of the existing expense tracker.")
         print("3. To exit the application, select option 4 from the main menu.\n")
         print("When creating an expense tracker for the first time:")
-        print("- First add your weekly income and expenses entries")
+        print("- First add your income and expenses entries")
         print("- When adding your income, you will be prompted to enter the income name, income amount, income category, and income date")
         print("- When adding your expenses, you will be prompted to enter the expense name, expense amount, expense category, and expense date")
         print("- You can then view all of your income and expense entries")
@@ -111,7 +111,7 @@ class ExpenseTracker:
         income_date = datetime.date.today()
 
         new_income = Income(name=income_name, amount=income_amount, category=income_category, date=income_date)
-        self.weekly_data.append(new_income)
+        self.monthly_data.append(new_income)
 
         print(f"Income recorded: {new_income}")
 
@@ -124,7 +124,7 @@ class ExpenseTracker:
         expense_date = datetime.date.today()
 
         new_expense = Expense(name=expense_name, amount=expense_amount, category=expense_category, date=expense_date)
-        self.weekly_data.append(new_expense)
+        self.monthly_data.append(new_expense)
 
         print(f"Expense recorded: {new_expense}")
 
@@ -134,7 +134,7 @@ class ExpenseTracker:
 
         try:
             with open(expense_file_path, 'w') as file:
-                for expense in self.weekly_data:
+                for expense in self.monthly_data:
                     file.write(f"{expense.name}, {expense.amount}, {expense.category}, {expense.date}\n")
         
             print(f"Budget data saved to {expense_file_path} successfully!")
@@ -148,11 +148,11 @@ class ExpenseTracker:
     def view_budget(self):
         print("viewing budget")
 
-        if not self.weekly_data:
+        if not self.monthly_data:
             print("Sorry, no data available. Please add your income or expense entries firsst")
             return
 
-        unique_month = set(entry.date.strftime("%B %Y") for entry in self.weekly_data)
+        unique_month = set(entry.date.strftime("%B %Y") for entry in self.monthly_data)
 
         if not unique_month:
             print("You have no available entries available for any month! Please add your entries first.")
@@ -165,7 +165,7 @@ class ExpenseTracker:
         selected_month_index = int(input("Please enter which month you would like to view:"))
         selected_month = list(unique_month)[selected_month_index - 1]
 
-        month_entries = [entry for entry in self.weekly_data if entry.date.strftime("%B %Y") == selected_month]
+        month_entries = [entry for entry in self.monthly_data if entry.date.strftime("%B %Y") == selected_month]
 
         incomes = [entry for entry in month_entries if isinstance(entry, Income)]
         expenses = [entry for entry in month_entries if isinstance(entry, Expense)]
@@ -184,7 +184,7 @@ class ExpenseTracker:
     def delete_entry(self):
         print("Deleting an entry:")
 
-        for index, expense in enumerate(self.weekly_data, start=1):
+        for index, expense in enumerate(self.monthly_data, start=1):
             print(f"{index}. {expense}")
 
         while True:
@@ -197,8 +197,8 @@ class ExpenseTracker:
         try:
             entry_index = int(user_input)
 
-            if 1 <= entry_index <= len(self.weekly_data):
-                del self.weekly_data [entry_index - 1]
+            if 1 <= entry_index <= len(self.monthly_data):
+                del self.monthly_data [entry_index - 1]
                 print("You have successfully deleted the entry!")
             else:
                 print("Invalid index. Please enter a valid index and try again.")
@@ -214,7 +214,7 @@ class ExpenseTracker:
 
                 writer.writerow(fieldnames)
 
-                for expense in self.weekly_data:
+                for expense in self.monthly_data:
                     writer.writerow([expense.name, expense.amount, expense.category, expense.date])
         
             print(f"Your budget data has been exported to {csv_file_path} sucessfully!")

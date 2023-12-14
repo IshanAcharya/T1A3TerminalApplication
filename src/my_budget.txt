@@ -1,1 +1,0 @@
-salary, 500000.0, salary, 2023-12-14birthday gift, 2000.0, retail, 2023-12-14
