@@ -6,21 +6,22 @@ import click
 import datetime
 import os
 
+# Class for Expense Tracker application
 class ExpenseTracker:
-    
+
     # Lists to define income and expense categories
     income_categories = ["Salary", "Side Job", "Interest", "Gift", "Freelance", "Other"]
     expense_categories = ["Groceries", "Utilities", "Rent", "Mortgage", "Entertainment", "Transportation", "Health", "Clothing", "Gifts", "Other"]
 
     def __init__(self):
+        # Empty list to store monthly income and expense data
         self.monthly_data = []
 
-
+# Create new Expense Tracker
     def create_new_expense_tracker(self):
         print("Creating new expense tracker")
 
         # Data structure to store monthly income and expenses
-
         self.monthly_data = []
 
         while True: 
@@ -58,7 +59,7 @@ class ExpenseTracker:
             else:
                 print("Your input is invalid. Please choose a menu option between 1-7.")
             
-
+# Load existing Expense Tracker from a file
     def load_expense_tracker(self):
         print("Loading existing expense tracker")
 
@@ -80,7 +81,7 @@ class ExpenseTracker:
         except Exception as e:
             print(f"Error loading expense data: {e}")
             
-
+# Display instructions on how to use the Expense Tracker application
     def view_instructions(self):
         print("Welcome to Budget Buddy!\n")
         print("To help you use this application, here are some simple instructions:\n")
@@ -105,17 +106,17 @@ class ExpenseTracker:
             else: 
                 print("Invalid input. Please enter r to return to the main menu.")
 
-
+# Record new income entry
     def record_income(self):
         print("You are now recording an income.")
 
-        income_name = input("Enter the income name:")
+        income_name = input("Enter the income name: ")
         while not income_name.isalpha():
             print("Sorry your input is invalid. Please make sure the income name only contains text letters and no symbols or numbers.")
-            income_name = input("Enter the income name:")
+            income_name = input("Enter the income name: ")
 
-        income_amount = float(input("Enter income amount:").replace(",", "").replace("$", ""))
-        income_category = input("Enter income category:")
+        income_amount = float(input("Enter income amount: ").replace(",", "").replace("$", ""))
+        income_category = input("Enter income category: ")
         income_date = datetime.date.today()
 
         new_income = Income(name=income_name, amount=income_amount, category=income_category, date=income_date)
@@ -123,16 +124,17 @@ class ExpenseTracker:
 
         print(f"Income recorded: {new_income}")
 
+# Record new expense entry
     def record_expense(self):
         print("You are now recording an expense.")
 
-        expense_name = input("Enter the expense name:")
+        expense_name = input("Enter the expense name: ")
         while not expense_name.isalpha():
             print("Sorry your input is invalid. Please make sure the expense name only contains text letters and no symbols or numbers.")
-            expense_name = input("Enter the expense name:")
+            expense_name = input("Enter the expense name: ")
 
-        expense_amount = float(input("Enter expense amount:").replace(",", "").replace("$", ""))
-        expense_category = input("Enter expense category:")
+        expense_amount = float(input("Enter expense amount: ").replace(",", "").replace("$", ""))
+        expense_category = input("Enter expense category: ")
         expense_date = datetime.date.today()
 
         new_expense = Expense(name=expense_name, amount=expense_amount, category=expense_category, date=expense_date)
@@ -140,6 +142,7 @@ class ExpenseTracker:
 
         print(f"Expense recorded: {new_expense}")
 
+# Save data to file
     def save_expense_to_file(self, file_name):
         desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
         expense_file_path = os.path.join(desktop_path, file_name)
@@ -157,6 +160,7 @@ class ExpenseTracker:
         except Exception as e:
             print(f"Error saving expense: {e}")
 
+# View list of income and expense entries for specific month
     def view_budget(self):
         print("viewing budget")
 
@@ -182,17 +186,37 @@ class ExpenseTracker:
         incomes = [entry for entry in month_entries if isinstance(entry, Income)]
         expenses = [entry for entry in month_entries if isinstance(entry, Expense)]
 
-        print("\nIncomes:")
-        for income in incomes:
-            print(f"{income.name}: ${income.amount:.2f} ({income.date})")
+        print("\nView Options:")
+        print("1. View your entries for a specific month")
+        print("2. View your entries sorted by category for a specific month")
 
-        print("\nExpenses:")
-        for expense in expenses:
-            print(f"{expense.name}: ${expense.amount:.2f} ({expense.date})")
+        option = input("Please enter your chocie (1 or 2):")
+
+        if option == "1":
+            print(f"\nEntries for {selected_month}:")
+
+            print("\nIncomes:")
+            for income in incomes:
+                print(f"{income.name}: ${income.amount:.2f} ({income.date})")
+            
+            print("\nExpenses:")
+            for expense in expenses:
+                print(f"{expense.name}: ${expense.amount:.2f} ({expense.date})")
+
+        elif option == "2":
+            self.view_by_category(selected_month, month_entries)
 
         print("This is the end of your budget summary.")
 
+# View list of income and expense entries sorted by category for a specific month
+    def view_by_category(self, selected_month, month_entries):
 
+        income_categories = ExpenseTracker.income_categories
+        expense_categories = ExpenseTracker.expense_categories
+
+        print("\nIncome Categories:")
+
+# Delete income or expense entries
     def delete_entry(self):
         print("Deleting an entry:")
 
@@ -223,6 +247,7 @@ class ExpenseTracker:
             for index, expense in enumerate(self.monthly_data, start=1):
                     print(f"{index}. {expense}")
 
+# Export budget data to CSV file
     def export_to_csv(self, csv_file_path):
         try:
             with open(csv_file_path, 'w', newline='') as csvfile:
@@ -239,7 +264,7 @@ class ExpenseTracker:
         except:
             print("There was an error exporting your budget data. Please check the file name and try again.")
 
-
+# Class for expense objects
 class Expense:
 
     def __init__(self, name, amount, category, date) -> None:
@@ -251,6 +276,7 @@ class Expense:
     def __repr__(self):
         return f"<Expense: {self.name}, {self.amount}, {self.category}, {self.date}>"
 
+# Class for income objects
 class Income:
     def __init__(self, name, amount, category, date) -> None:
         self.name = name

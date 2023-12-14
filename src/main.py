@@ -2,6 +2,7 @@ from expense_tracker import ExpenseTracker
 from colorama import Fore
 import emoji
 
+# Main function for application
 def main():
     print("Welcome to Budget Buddy, helping you spend smart and live smarter!")
 
