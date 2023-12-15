@@ -4,7 +4,7 @@ import emoji
 
 # Main function for application
 def main():
-    print(f"{Fore.BLACK}{emoji.emojize(':chart_with_upwards_trend:')} Welcome to Budget Buddy, helping you spend smart and live smarter!{Fore.RESET}")
+    print(f"{Fore.BLACK}{emoji.emojize(':chart_increasing:')} Welcome to Budget Buddy, helping you spend smart and live smarter!{Fore.RESET}")
 
     expense_tracker = ExpenseTracker()
     is_running = True

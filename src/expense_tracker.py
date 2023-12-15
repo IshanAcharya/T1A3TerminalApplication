@@ -25,7 +25,7 @@ class ExpenseTracker:
         emoji.emojize(":clapper_board: Entertainment"),
         emoji.emojize(":sport_utility_vehicle: Transportation"),
         emoji.emojize(":hospital: Health"),
-        emoji.emojize(":t_shirt: Clothing"),
+        emoji.emojize(":dress: Clothing"),
         emoji.emojize(":wrapped_gift: Gifts"),
         emoji.emojize(":red_circle: Other")]
 
@@ -48,7 +48,7 @@ class ExpenseTracker:
             print(f"{Fore.RED}2. {emoji.emojize(':credit_card:')} Add expense entry{Fore.RESET}")
             print(f"{Fore.BLUE}3. {emoji.emojize(':bar_chart:')} View your budget for this month{Fore.RESET}")
             print(f"{Fore.YELLOW}4. {emoji.emojize(':floppy_disk:')} Save budget data{Fore.RESET}")
-            print(f"{Fore.CYAN}5. {emoji.emojize(':wastebasket:')} Delete an entry{Fore.RESET}")
+            print(f"{Fore.CYAN}5. {emoji.emojize(':wastebasket:')}  Delete an entry{Fore.RESET}")
             print(f"{Fore.MAGENTA}6. {emoji.emojize(':outbox_tray:')} Export budget to CSV{Fore.RESET}")
             print(f"{Fore.BLACK}7. {emoji.emojize(':backhand_index_pointing_left:')} Return to main menu{Fore.RESET}")
 
@@ -124,7 +124,7 @@ class ExpenseTracker:
                 print(f"{Fore.RED}2. {emoji.emojize(':credit_card:')} Add expense entry{Fore.RESET}")
                 print(f"{Fore.BLUE}3. {emoji.emojize(':bar_chart:')} View your budget for this month{Fore.RESET}")
                 print(f"{Fore.YELLOW}4. {emoji.emojize(':floppy_disk:')} Save budget data{Fore.RESET}")
-                print(f"{Fore.CYAN}5. {emoji.emojize(':wastebasket:')} Delete an entry{Fore.RESET}")
+                print(f"{Fore.CYAN}5. {emoji.emojize(':wastebasket:')}  Delete an entry{Fore.RESET}")
                 print(f"{Fore.MAGENTA}6. {emoji.emojize(':outbox_tray:')} Export budget to CSV{Fore.RESET}")
                 print(f"{Fore.BLACK}7. {emoji.emojize(':backhand_index_pointing_left:')} Return to main menu{Fore.RESET}")
 
