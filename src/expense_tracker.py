@@ -21,11 +21,11 @@ class ExpenseTracker:
         emoji.emojize(":shopping_cart: Groceries"),
         emoji.emojize(":gear: Utilities"),
         emoji.emojize(":house: Rent"),
-        emoji.emojize(":mortar_board: Mortgage"),
-        emoji.emojize(":clapper: Entertainment"),
-        emoji.emojize(":car: Transportation"),
+        emoji.emojize(":bank: Mortgage"),
+        emoji.emojize(":clapper_board: Entertainment"),
+        emoji.emojize(":sport_utility_vehicle: Transportation"),
         emoji.emojize(":hospital: Health"),
-        emoji.emojize(":shirt: Clothing"),
+        emoji.emojize(":t_shirt: Clothing"),
         emoji.emojize(":wrapped_gift: Gifts"),
         emoji.emojize(":red_circle: Other")]
 
