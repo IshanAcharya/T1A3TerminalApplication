@@ -264,36 +264,46 @@ class ExpenseTracker:
         for index, month in enumerate(unique_month, start=1):
             print(f"{index}. {month}")
 
-        selected_month_index = int(input("Please enter which month you would like to view:"))
-        selected_month = list(unique_month)[selected_month_index - 1]
+        while True:
+            try:
+                selected_month_index = int(input("Please enter which month you would like to view:"))
+                selected_month = list(unique_month)[selected_month_index - 1]
+            except  (ValueError, IndexError):
+                print("Invalid input. Please enter a valid number to select a month.")
+                continue
 
-        month_entries = [entry for entry in self.monthly_data if entry.date.strftime("%B %Y") == selected_month]
+            month_entries = [entry for entry in self.monthly_data if entry.date.strftime("%B %Y") == selected_month]
 
-        incomes = [entry for entry in month_entries if isinstance(entry, Income)]
-        expenses = [entry for entry in month_entries if isinstance(entry, Expense)]
+            incomes = [entry for entry in month_entries if isinstance(entry, Income)]
+            expenses = [entry for entry in month_entries if isinstance(entry, Expense)]
 
-        print("\nView Options:")
-        print("1. View your entries for a specific month")
-        print("2. View your entries sorted by category for a specific month")
+            print("\nView Options:")
+            print("1. View your entries for a specific month")
+            print("2. View your entries sorted by category for a specific month")
 
-        option = input("Please enter your chocie (1 or 2):")
+            while True:
+                option = input("Please enter your chocie (1 or 2):")
+                if option in {"1", "2"}:
+                    break
+                else: 
+                    print("Invalid input. Please choose 1 or 2.")
 
-        if option == "1":
-            print(f"\nEntries for {selected_month}:")
+            if option == "1":
+                print(f"\nEntries for {selected_month}:")
 
-            print("Incomes")
-            print(tabulate([(income.name, f"{income.amount:.2f}", income.date) for income in incomes], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+                print("Incomes")
+                print(tabulate([(income.name, f"{income.amount:.2f}", income.date) for income in incomes], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
             
-            print("\nExpenses:")
-            print(tabulate([(expense.name, f"{expense.amount:.2f}", expense.date) for expense in expenses], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+                print("\nExpenses:")
+                print(tabulate([(expense.name, f"{expense.amount:.2f}", expense.date) for expense in expenses], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
 
-            self.display_entry_total(incomes, expenses)
+                elf.display_entry_total(incomes, expenses)
 
-        elif option == "2":
-            self.view_by_category(selected_month, month_entries)
-            self.display_entry_total(incomes, expenses)
+            elif option == "2":
+                self.view_by_category(selected_month, month_entries)
+                self.display_entry_total(incomes, expenses)
 
-        print("This is the end of your budget summary.")
+            print("This is the end of your budget summary.")
 
     def display_entry_total(self, incomes, expenses):
         total_income = sum(income.amount for income in incomes)
