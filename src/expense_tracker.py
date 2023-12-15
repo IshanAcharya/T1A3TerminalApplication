@@ -158,10 +158,12 @@ class ExpenseTracker:
     def record_income(self):
         print("You are now recording an income.")
 
-        income_name = input("Enter the income name: ")
-        while not income_name.isalpha():
-            print("Sorry your input is invalid. Please make sure the income name only contains text letters and no symbols or numbers.")
+        while True:
             income_name = input("Enter the income name: ")
+            if income_name.replace(" ", "").isalpha():
+                break
+            else:
+                print("Sorry your input is invalid. Please make sure the income name only contains text letters and no symbols or numbers.")
 
         income_amount = float(input("Enter income amount: ").replace(",", "").replace("$", ""))
         income_category = self.choose_category("income")
@@ -176,10 +178,12 @@ class ExpenseTracker:
     def record_expense(self):
         print("You are now recording an expense.")
 
-        expense_name = input("Enter the expense name: ")
-        while not expense_name.isalpha():
-            print("Sorry your input is invalid. Please make sure the expense name only contains text letters and no symbols or numbers.")
+        while True:
             expense_name = input("Enter the expense name: ")
+            if expense_name.replace(" ", "").isalpha():
+                break
+            else:
+                print("Sorry your input is invalid. Please make sure the expense name only contains text letters and no symbols or numbers.")
 
         expense_amount = float(input("Enter expense amount: ").replace(",", "").replace("$", ""))
         expense_category = self.choose_category("expense")
