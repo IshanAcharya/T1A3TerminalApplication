@@ -76,9 +76,16 @@ class ExpenseTracker:
                 self.monthly_data = []
 
                 for row in reader:
-                    name, amount, category, date = row
-                    new_expense = Expense(name, float(amount), category, date)
-                    self.monthly_data.append(new_expense)
+                    name, amount, category, date_str = row
+                    date_str = date_str.strip()
+                    date_format_in_file = '%Y-%m-%d'
+                    date = datetime.datetime.strptime(date_str, date_format_in_file).date()
+
+                    if category in self.income_categories:
+                        new_entry = Income(name, float(amount), category, date)
+                    else:
+                        new_entry = Expense(name, float(amount), category, date)
+                    self.monthly_data.append(new_entry)
 
             print(f"Data has been successfully loaded from {full_file_path}")
 
