@@ -1,10 +1,9 @@
-from tabulate import tabulate
-from colorama import Fore, Style
-import emoji
-import csv
-import click
-import datetime
-import os
+from tabulate import tabulate # Import tabulate to create tables when displaying data
+from colorama import Fore, Style # Import colorama to add coloured text within expense tracker
+import emoji # Import emoji module to add emojis to expense tracker
+import csv #Import csv module to handle csv files
+import datetime #Import datetime to implement time and date within expense tracker
+import os # Import os to define file path to save/load/export data to user's desktop
 
 # Class for Expense Tracker application
 class ExpenseTracker:
@@ -321,7 +320,7 @@ class ExpenseTracker:
         selected_expense_category = int(input("Select an expense category to display:"))
 
         filtered_entries = []
-        
+
         for entry in month_entries:
             if selected_income_category == 0 and isinstance(entry, Income):
                 filtered_entries.append(entry)
