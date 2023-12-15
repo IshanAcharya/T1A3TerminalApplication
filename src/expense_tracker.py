@@ -240,7 +240,7 @@ class ExpenseTracker:
         print("viewing budget")
 
         if not self.monthly_data:
-            print("Sorry, no data available. Please add your income or expense entries firsst")
+            print("Sorry, no data available. Please add your income or expense entries first")
             return
 
         unique_month = set(entry.date.strftime("%B %Y") for entry in self.monthly_data)
@@ -278,10 +278,20 @@ class ExpenseTracker:
             for expense in expenses:
                 print(f"{expense.name}: ${expense.amount:.2f} ({expense.date})")
 
+            self.display_entry_total(incomes, expenses)
+
         elif option == "2":
             self.view_by_category(selected_month, month_entries)
+            self.display_entry_total(incomes, expenses)
 
         print("This is the end of your budget summary.")
+
+    def display_entry_total(self, incomes, expenses):
+        total_income = sum(income.amount for income in incomes)
+        total_expense = sum(expense.amount for expense in expenses)
+
+        print(f"\nTotal Income: ${total_income:.2f}")
+        print(f"Total Expenses: ${total_expense:.2f}")
 
 # View list of income and expense entries sorted by category for a specific month
     def view_by_category(self, selected_month, month_entries):
