@@ -365,17 +365,19 @@ class ExpenseTracker:
 # Export budget data to CSV file
     def export_to_csv(self, csv_file_name):
         desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
-        csv_file_path = os.path.join(desktop_path, csv_file_name)
+        csv_file_path = os.path.join(desktop_path, csv_file_name + ".csv")
 
         try:
             with open(csv_file_path, 'w', newline='') as csvfile:
-                fieldnames = ['Name', 'Amount','Category', 'Date']
                 writer = csv.writer(csvfile)
 
-                writer.writerow(fieldnames)
+                writer.writerow(['Name', 'Amount', 'Category', 'Date'])
 
-                for expense in self.monthly_data:
-                    writer.writerow([expense.name, expense.amount, expense.category, expense.date])
+                for income in self.monthly_data:
+                    writer.writerow([income.name, income.amount, income.category, income.date])
+                else: 
+                    for expense in self.monthly_data:
+                        writer.writerow([expense.name, expense.amount, expense.category, expense.date])
         
             print(f"Your budget data has been exported to {csv_file_path} sucessfully!")
 
