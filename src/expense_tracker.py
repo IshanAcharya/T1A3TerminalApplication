@@ -179,7 +179,10 @@ class ExpenseTracker:
         new_income = Income(name=income_name, amount=income_amount, category=income_category, date=income_date)
         self.monthly_data.append(new_income)
 
-        print(f"Income recorded: {new_income}")
+        print("Income recorded:")
+        print(tabulate([(new_income.name, f"{new_income.amount:.2f}", new_income.date)], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+
+
 
 # Record new expense entry
     def record_expense(self):
@@ -199,7 +202,9 @@ class ExpenseTracker:
         new_expense = Expense(name=expense_name, amount=expense_amount, category=expense_category, date=expense_date)
         self.monthly_data.append(new_expense)
 
-        print(f"Expense recorded: {new_expense}")
+        print("Expense recorded:")
+        print(tabulate([(new_expense.name, f"{new_expense.amount:.2f}", new_expense.date)], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+
 
 # Choose income and expense entry categories
     def choose_category(self, entry_type):
@@ -277,13 +282,11 @@ class ExpenseTracker:
         if option == "1":
             print(f"\nEntries for {selected_month}:")
 
-            print("\nIncomes:")
-            for income in incomes:
-                print(f"{income.name}: ${income.amount:.2f} ({income.date})")
+            print("Incomes")
+            print(tabulate([(income.name, f"{income.amount:.2f}", income.date) for income in incomes], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
             
             print("\nExpenses:")
-            for expense in expenses:
-                print(f"{expense.name}: ${expense.amount:.2f} ({expense.date})")
+            print(tabulate([(expense.name, f"{expense.amount:.2f}", expense.date) for expense in expenses], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
 
             self.display_entry_total(incomes, expenses)
 
@@ -318,6 +321,7 @@ class ExpenseTracker:
         selected_expense_category = int(input("Select an expense category to display:"))
 
         filtered_entries = []
+        
         for entry in month_entries:
             if selected_income_category == 0 and isinstance(entry, Income):
                 filtered_entries.append(entry)
@@ -403,6 +407,6 @@ class Income:
         self.amount = amount
         self.category = category
         self.date = date
-
+# String representation
     def __repr__(self):
         return f"<Income: {self.name}, {self.amount}, {self.category}, {self.date}>"
