@@ -157,7 +157,7 @@ class ExpenseTracker:
         print("Welcome to Budget Buddy!\n")
         print("To help you use this application, here are some simple instructions:\n")
         print("1. To create a new expense tracker and start recording your income and expenses, select option 1 from the main menu and follow the sub-menu options.")
-        print("2. To load an existing expense tracker, select option 2 from the main menu and type in the file name of the existing expense tracker.")
+        print("2. To load an existing expense tracker, select option 2 from the main menu and type in the file name of the existing expense tracker. Note: This file must be saved in your desktop.")
         print("3. To exit the application, select option 4 from the main menu.\n")
         print("When creating an expense tracker for the first time:")
         print("- First add your income and expenses entries")
@@ -165,7 +165,7 @@ class ExpenseTracker:
         print("- When adding your expenses, you will be prompted to enter the expense name, expense amount, and expense category")
         print("- You can then view all of your income and expense entries")
         print("- You can delete any income or expense entries as you see fit")
-        print("- You can save all of your data and will be prompted to enter a file name to save the data")
+        print("- You can save all of your data and will be prompted to enter a file name to save the data. Note: This file will be saved on your desktop.")
         print("- You will also have the ability to export your data to a CSV file for external data keeping/analysis")
         print("- Thank you for using Budget Buddy. I hope you enjoy using it!")
 
@@ -196,7 +196,7 @@ class ExpenseTracker:
         self.monthly_data.append(new_income)
 
         print(f"{Fore.GREEN}{emoji.emojize(':money_bag:')}Income recorded:{Fore.RESET}")
-        print(tabulate([(new_income.name, f"{new_income.amount:.2f}", new_income.date)], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+        print(tabulate([(new_income.name, f"{new_income.amount:.2f}", new_income.category, new_income.date)], headers=["Name", "Amount", "Category", "Date"], tablefmt="fancy_grid"))
 
 
 # Record new expense entry
@@ -218,7 +218,7 @@ class ExpenseTracker:
         self.monthly_data.append(new_expense)
 
         print(f"{Fore.RED}{emoji.emojize(':credit_card:')} Expense recorded:{Fore.RESET}")
-        print(tabulate([(new_expense.name, f"{new_expense.amount:.2f}", new_expense.date)], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+        print(tabulate([(new_expense.name, f"{new_expense.amount:.2f}", new_expense.category, new_expense.date)], headers=["Name", "Amount", "Category", "Date"], tablefmt="fancy_grid"))
 
 
 # Choose income and expense entry categories
