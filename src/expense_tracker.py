@@ -284,8 +284,9 @@ class ExpenseTracker:
             try:
                 selected_month_index = int(input(f"{Fore.CYAN}Please enter which month you would like to view:{Fore.RESET}"))
                 selected_month = list(unique_month)[selected_month_index - 1]
+                
             except  (ValueError, IndexError):
-                print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please enter a valid number to select a month.{Fore.RESET}")
+                print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please enter a valid number.{Fore.RESET}")
                 continue
 
             month_entries = [entry for entry in self.monthly_data if entry.date.strftime("%B %Y") == selected_month]
@@ -298,11 +299,14 @@ class ExpenseTracker:
             print(f"{Fore.GREEN}2. View your entries sorted by category for a specific month{Fore.RESET}")
 
             while True:
-                option = input(f"{Fore.BLUE}Please enter your choice (1 or 2):{Fore.RESET}")
-                if option in {"1", "2"}:
+                option = input(f"{Fore.BLUE}Please enter your choice (1 or 2), or type 'r' to return to the sub menu:{Fore.RESET}")
+                
+                if option == 'r':
+                    break
+                elif option in {"1", "2"}:
                     break
                 else: 
-                    print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please choose 1 or 2.{Fore.RESET}")
+                    print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please choose 1 or 2, or press 'r' to return to the sub menu.{Fore.RESET}")
 
             if option == "1":
                 print(f"\n{emoji.emojize(':spiral_notepad:')}Entries for {selected_month}:")
@@ -315,11 +319,29 @@ class ExpenseTracker:
 
                 self.display_entry_total(incomes, expenses)
 
+                while True:                
+                    user_input = input(f"{Fore.YELLOW}{emoji.emojize(':input_latin_lowercase:')} Please enter 'r' to return:{Fore.RESET}").lower()
+
+                    if user_input == 'r':
+                        break
+                    else: 
+                        print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please enter r to return.{Fore.RESET}")
+
             elif option == "2":
                 self.view_by_category(selected_month, month_entries)
                 self.display_entry_total(incomes, expenses)
 
-            print(f"{Fore.CYAN}{emoji.emojize(':bar_chart:')} This is the end of your budget summary.{Fore.RESET}")
+                while True:                
+                    user_input = input(f"{Fore.YELLOW}{emoji.emojize(':input_latin_lowercase:')} Please enter 'r' to return:{Fore.RESET}").lower()
+
+                    if user_input == 'r':
+                        break
+                    else: 
+                        print(f"{Fore.RED}{emoji.emojize(':warning:')} Invalid input. Please enter r to return.{Fore.RESET}")
+            else:
+                break
+        
+        print(f"{Fore.CYAN}{emoji.emojize(':bar_chart:')} This is the end of your budget summary.{Fore.RESET}")
 
     def display_entry_total(self, incomes, expenses):
         total_income = sum(income.amount for income in incomes)
