@@ -459,9 +459,14 @@ class ExpenseTracker:
 
         #Displayed entries by category
         print(f"\n{emoji.emojize(':spiral_notepad:')}Entries for {selected_month} by category:")
+        #Empty list to store entries in tabulate format
+        entries_table = []
+        #Add entries to the entries table list
         for entry in filtered_entries:
-            print(entry)
-
+            entries_table.append([entry.name, f"{entry.amount:.2f}", entry.category, entry.date])
+        #Display entries with categories within tabulate table 
+        print(tabulate(entries_table, headers=["Name", "Amount", "Category", "Date"], tablefmt="fancy_grid"))
+            
 #Delete income or expense entries
     def delete_entry(self):
         #Display message to indicate that user is about to delete entries
